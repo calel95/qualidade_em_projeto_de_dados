@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "qualidade-em-projeto-de-dados"
+version = "0.1.0"
+description = ""
+authors = ["Calel <borgescalel@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mkdocs = "^1.6.1"
+mkdocs-mermaid2-plugin = "^1.2.1"
+mkdocs-material = "^9.6.14"
+mkdocstrings = {extras = ["python"], version = "^0.29.1"}
+taskipy = "^1.14.1"
+isort = "^6.0.1"
+black = "^25.1.0"
+pytest = "^8.3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+format = """
+isort .
+black .
+"""
+kill = "kill -9 $(lsof -t -i :8000)"
+test = "pytest -v"
+run = """
+python3 app/main.py
+"""
+
+doc = "mkdocs serve"
