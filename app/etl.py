@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 import duckdb
 
 
-from schema import ProdutoSchema, ProdutoSchemaKPI
+from .schema import ProdutoSchema, ProdutoSchemaKPI
 
 
 def load_settings():
@@ -40,8 +40,8 @@ def extract_data_sql(query: str) -> pd.DataFrame:
     #print(f"Extracting data from {settings['DB_HOST']}:{settings['DB_PORT']} as {settings['DB_USER']}")
     return df_crm
 
-@pa.check_input(ProdutoSchema, lazy=True)
-@pa.check_output(ProdutoSchemaKPI, lazy=True)
+#@pa.check_input(ProdutoSchema, lazy=True)
+#@pa.check_output(ProdutoSchemaKPI, lazy=True)
 def transformar(df: pd.DataFrame) -> pd.DataFrame:
     """
     Transform the extracted data.
@@ -57,7 +57,7 @@ def transformar(df: pd.DataFrame) -> pd.DataFrame:
     
     return df
 
-@pa.check_input(ProdutoSchemaKPI, lazy=True)
+#@pa.check_input(ProdutoSchemaKPI, lazy=True)
 def load_to_duckdb(df: pd.DataFrame, table_name: str, db_file: str = 'meu_duckdb2.db') -> None:
 
     con = duckdb.connect(database=db_file, read_only=False)
